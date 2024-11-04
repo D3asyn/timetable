@@ -4,13 +4,38 @@
 
 The TimeTable API provides endpoints for managing teachers, subjects, classes, students, and timetable entries in a school management system. Below are the available endpoints along with their descriptions, request formats, and expected responses.
 
-## Base URL
+### Base URL
 
 ```
 http://localhost:3000/api/
 ```
 
----
+### Required Packages
+
+1. **express**: A web framework for Node.js that allows you to build web applications and APIs.
+2. **dotenv**: A module that loads environment variables from a `.env` file into `process.env`. This is useful for managing configuration variables such as database connection strings.
+3. **sqlite3**: A package that provides a simple interface for SQLite databases. This will allow you to interact with an SQLite database to store your data.
+
+### Installation Instructions
+
+1. **Initialize your project** (if you haven't done so already):
+
+    ```bash
+    npm init -y
+    ```
+
+2. **Install the required packages**:
+    ```bash
+    npm install express dotenv sqlite3
+    ```
+
+### Example of Creating a `.env` File
+
+You may want to create a `.env` file in your project root to store configuration variables. Here’s an example:
+
+```plaintext
+PORT=3000
+```
 
 ## Endpoints
 
