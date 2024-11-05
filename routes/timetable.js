@@ -28,4 +28,27 @@ router.post('/', (req, res) => {
     );
 });
 
+// Edit a timetable entry
+router.put('/:id', (req, res) => {
+    const { date, time, subject_id, teacher_id, class_id } = req.body;
+    req.db.run(`UPDATE timetable SET date = ?, time = ?, subject_id = ?, teacher_id = ?, class_id = ? WHERE id = ?`,
+        [date, time, subject_id, teacher_id, class_id, req.params.id],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ changes: this.changes });
+        }
+    );
+});
+
+// Delete a timetable entry
+router.delete('/:id', (req, res) => {
+    req.db.run(`DELETE FROM timetable WHERE id = ?`,
+        req.params.id,
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ changes: this.changes });
+        }
+    );
+});
+
 export default router;

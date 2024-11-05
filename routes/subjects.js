@@ -21,4 +21,27 @@ router.post('/', (req, res) => {
     );
 });
 
+// Edit a subject
+router.put('/:id', (req, res) => {
+    const { name } = req.body;
+    req.db.run(`UPDATE subjects SET name = ? WHERE id = ?`,
+        [name, req.params.id],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ changes: this.changes });
+        }
+    );
+});
+
+// Delete a subject
+router.delete('/:id', (req, res) => {
+    req.db.run(`DELETE FROM subjects WHERE id = ?`,
+        req.params.id,
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ changes: this.changes });
+        }
+    );
+});
+
 export default router;

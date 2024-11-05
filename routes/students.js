@@ -21,5 +21,27 @@ router.post('/', (req, res) => {
     );
 });
 
+// Edit a student
+router.put('/:id', (req, res) => {
+    const { name, class_id } = req.body;
+    req.db.run(`UPDATE students SET name = ?, class_id = ? WHERE id = ?`,
+        [name, class_id, req.params.id],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ changes: this.changes });
+        }
+    );
+});
+
+// Delete a student
+router.delete('/:id', (req, res) => {
+    req.db.run(`DELETE FROM students WHERE id = ?`,
+        req.params.id,
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ changes: this.changes });
+        }
+    );
+});
 
 export default router;
